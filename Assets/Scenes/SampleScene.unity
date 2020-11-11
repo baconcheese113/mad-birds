@@ -351,6 +351,7 @@ GameObject:
   - component: {fileID: 517997745}
   - component: {fileID: 517997749}
   - component: {fileID: 517997748}
+  - component: {fileID: 517997750}
   m_Layer: 0
   m_Name: virus
   m_TagString: Untagged
@@ -488,6 +489,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &517997750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517997744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 731fc981f12b3dd4ab4ee3b2b1b66126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,7 +589,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3.6225002
+  orthographic size: 3.6225
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -600,7 +613,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.8720002, y: -1.8534999, z: -11}
+  m_LocalPosition: {x: 3.872, y: -1.8534999, z: -11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -749,6 +762,7 @@ GameObject:
   - component: {fileID: 576313089}
   - component: {fileID: 576313088}
   - component: {fileID: 576313087}
+  - component: {fileID: 576313092}
   m_Layer: 0
   m_Name: virus (1)
   m_TagString: Untagged
@@ -886,6 +900,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &576313092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576313086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 731fc981f12b3dd4ab4ee3b2b1b66126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &736637792
 GameObject:
   m_ObjectHideFlags: 0
@@ -899,6 +925,7 @@ GameObject:
   - component: {fileID: 736637795}
   - component: {fileID: 736637794}
   - component: {fileID: 736637793}
+  - component: {fileID: 736637798}
   m_Layer: 0
   m_Name: virus (2)
   m_TagString: Untagged
@@ -1036,6 +1063,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &736637798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736637792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 731fc981f12b3dd4ab4ee3b2b1b66126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &969837200
 GameObject:
   m_ObjectHideFlags: 0
@@ -1805,7 +1844,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1707385032}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.8720002, y: -1.8534999, z: -11}
+  m_LocalPosition: {x: 3.872, y: -1.8534999, z: -11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 342809001}
