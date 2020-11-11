@@ -5,6 +5,7 @@ public class LevelController : MonoBehaviour
 {
   private Enemy[] _enemies;
   private static int _nextLevelIndex = 1;
+  private int _totalLevels = 3;
 
   private void OnEnable()
   {
@@ -24,7 +25,8 @@ public class LevelController : MonoBehaviour
     }
 
     print("Level finished");
-    string nextLevelName = "Level" + ++_nextLevelIndex;
+    _nextLevelIndex = Mathf.Min(_nextLevelIndex + 1, _totalLevels);
+    string nextLevelName = "Level" + _nextLevelIndex;
     SceneManager.LoadScene(nextLevelName);
   }
 }
