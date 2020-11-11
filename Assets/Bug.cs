@@ -9,6 +9,7 @@ public class Bug : MonoBehaviour
   private float _timeSittingAround = 0;
 
   [SerializeField] private float _launchPower = 600;
+  [SerializeField] private float _timeBeforeRestart = 2;
 
   private void Awake()
   {
@@ -23,7 +24,7 @@ public class Bug : MonoBehaviour
     {
       _timeSittingAround += Time.deltaTime;
     }
-    if (_timeSittingAround > .5 || Math.Abs(transform.position.y) > 10 || Math.Abs(transform.position.x) > 10)
+    if (_timeSittingAround > _timeBeforeRestart || Math.Abs(transform.position.y) > 10 || Math.Abs(transform.position.x) > 10)
     {
       string currentSceneName = SceneManager.GetActiveScene().name;
       SceneManager.LoadScene(currentSceneName);

@@ -10,6 +10,14 @@ public class Enemy : MonoBehaviour
     if (bug != null)
     {
       Destroy(gameObject);
+      return;
+    }
+    Enemy enemy = other.collider.GetComponent<Enemy>();
+    if (enemy != null) return;
+
+    if (other.contacts[0].normal.y < -.5)
+    {
+      Destroy(gameObject);
     }
   }
 }
