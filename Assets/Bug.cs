@@ -17,6 +17,8 @@ public class Bug : MonoBehaviour
 
   private void Update()
   {
+    GetComponent<LineRenderer>().SetPosition(0, transform.position);
+    GetComponent<LineRenderer>().SetPosition(1, _initialPosition);
     if (_birdWasLaunched && GetComponent<Rigidbody2D>().velocity.magnitude <= .1)
     {
       _timeSittingAround += Time.deltaTime;
@@ -31,11 +33,13 @@ public class Bug : MonoBehaviour
   private void OnMouseDown()
   {
     GetComponent<SpriteRenderer>().color = Color.red;
+    GetComponent<LineRenderer>().enabled = true;
   }
 
   private void OnMouseUp()
   {
     GetComponent<SpriteRenderer>().color = Color.white;
+    GetComponent<LineRenderer>().enabled = false;
 
     Vector2 directionToInitialPosition = _initialPosition - transform.position;
     GetComponent<Rigidbody2D>().AddForce(directionToInitialPosition * _launchPower);
