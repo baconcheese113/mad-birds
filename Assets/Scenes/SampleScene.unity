@@ -1135,7 +1135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34fef72fe7cd58747b4450e2b72df052, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _launchPower: 600
+  _launchPower: 300
 --- !u!120 &1844629657
 LineRenderer:
   m_ObjectHideFlags: 0
