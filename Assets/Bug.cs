@@ -8,6 +8,10 @@ public class Bug : MonoBehaviour
   private bool _birdWasLaunched;
   private float _timeSittingAround = 0;
 
+  [SerializeField] private AudioClip _bugLaunch;
+  [SerializeField] private AudioSource _bugImpact;
+  [SerializeField] private AudioSource _bugPull;
+
   [SerializeField] private float _launchPower = 600;
   [SerializeField] private float _timeBeforeRestart = 2;
 
@@ -31,10 +35,20 @@ public class Bug : MonoBehaviour
     }
   }
 
+  private void OnCollisionEnter2D(Collision2D other)
+  {
+    if (_bugImpact && !_bugImpact.isPlaying)
+    {
+      _bugImpact.Play();
+      _bugImpact.volume = Mathf.Min(other.relativeVelocity.magnitude / 20, 1);
+    }
+  }
+
   private void OnMouseDown()
   {
     GetComponent<SpriteRenderer>().color = Color.red;
     GetComponent<LineRenderer>().enabled = true;
+    if (_bugPull && !_bugPull.isPlaying) _bugPull.Play();
   }
 
   private void OnMouseUp()
@@ -47,6 +61,8 @@ public class Bug : MonoBehaviour
     GetComponent<Rigidbody2D>().gravityScale = 1;
     _timeSittingAround = 0;
     _birdWasLaunched = true;
+    if (_bugPull && _bugPull.isPlaying) _bugPull.Stop();
+    if (_bugLaunch) AudioSource.PlayClipAtPoint(_bugLaunch, transform.position);
   }
 
   private void OnMouseDrag()
