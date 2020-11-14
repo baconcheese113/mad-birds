@@ -6,9 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class LevelController : MonoBehaviour
 {
+  [SerializeField] private int _totalLevels = 3;
+
   private List<Enemy> _enemiesLeft;
   private static int _nextLevelIndex = 1;
-  private int _totalLevels = 3;
   private bool _levelFinished = false;
 
   private void OnEnable()
