@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
@@ -21,5 +21,11 @@ public class Enemy : MonoBehaviour
       Instantiate(_cloudParticlePrefab, transform.position, Quaternion.identity);
       Destroy(gameObject);
     }
+  }
+
+  private void OnDestroy()
+  {
+    LevelController controller = FindObjectOfType<LevelController>();
+    controller.NotifyEnemyDestroyed(this);
   }
 }

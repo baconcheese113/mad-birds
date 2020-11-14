@@ -1,34 +1,36 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelController : MonoBehaviour
 {
-  private Enemy[] _enemies;
+  private List<Enemy> _enemiesLeft;
   private static int _nextLevelIndex = 1;
   private int _totalLevels = 3;
   private bool _levelFinished = false;
 
   private void OnEnable()
   {
-    _enemies = FindObjectsOfType<Enemy>();
-
-  }
-
-  // Update is called once per frame
-  void Update()
-  {
-    foreach (Enemy enemy in _enemies)
+    Enemy[] enemies = FindObjectsOfType<Enemy>();
+    _enemiesLeft = new List<Enemy>(enemies);
+    CinemachineTargetGroup targetGroup = FindObjectOfType<CinemachineTargetGroup>();
+    foreach (Enemy e in enemies)
     {
-      if (enemy)
-      {
-        return;
-      }
+      targetGroup.AddMember(e.transform, 1f, 1f);
     }
-    FinishLevel();
+    Bug bug = FindObjectOfType<Bug>();
+    if (bug) targetGroup.AddMember(bug.transform, 1f, 1f);
   }
 
-  void FinishLevel()
+  public void NotifyEnemyDestroyed(Enemy enemy)
+  {
+    _enemiesLeft.Remove(enemy);
+    if (_enemiesLeft.Count == 0) FinishLevel();
+  }
+
+  private void FinishLevel()
   {
     if (_levelFinished) return;
     _levelFinished = true;
