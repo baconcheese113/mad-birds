@@ -498,7 +498,12 @@ MonoBehaviour:
     explosiveCrates: []
     enemies: []
   _json: 
+  _fileName: ExportedScene.json
+  _cratePrefab: {fileID: 46358918037127745, guid: 6620a3b144e34f9408c052d7d199195c,
+    type: 3}
   _explosiveCratePrefab: {fileID: 46358918037127745, guid: d9c182975b286404fb99ed5fa2f93d9c,
+    type: 3}
+  _platformPrefab: {fileID: 3214447149796526713, guid: 9bb184abc1e2651498f7d6afc405bc6c,
     type: 3}
   _enemyPrefab: {fileID: 2211585013971298139, guid: e8c53a010e4361f4e86cc6ad004dbe76,
     type: 3}
@@ -616,7 +621,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 609493585125939935}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.1676764, y: 0.048784018, z: -10}
+  m_LocalPosition: {x: 6.219305, y: 0.04843211, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 609493584332123870}
