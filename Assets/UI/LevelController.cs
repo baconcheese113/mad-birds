@@ -44,6 +44,7 @@ public class LevelController : MonoBehaviour
 
   public void RestartLevel()
   {
+    ShowPauseMenu(false);
     SceneManager.LoadScene("Level" + _nextLevelIndex);
   }
 
@@ -70,6 +71,7 @@ public class LevelController : MonoBehaviour
 
   public void JumpToScene(string name)
   {
+    ShowPauseMenu(false);
     SceneManager.LoadScene(name);
   }
 }
