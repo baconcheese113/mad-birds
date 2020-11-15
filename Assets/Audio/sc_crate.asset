@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c199dfc136e9cb44cbef80ff559a1801, type: 3}
+  m_Name: sc_crate
+  m_EditorClassIdentifier: 
+  _audioSlots:
+  - _audioClip: {fileID: 8300000, guid: 2d4947b5e4c2c50499de6cf1ad7fc480, type: 3}
+    _volume: 0.5
+  - _audioClip: {fileID: 8300000, guid: d2cb400d307040e4db4228950bab9503, type: 3}
+    _volume: 0.5
+  - _audioClip: {fileID: 8300000, guid: 416c27ba30d86fc4e823864303510061, type: 3}
+    _volume: 0.5
+  - _audioClip: {fileID: 8300000, guid: 008f0703c0864a949a0eb813be658c1a, type: 3}
+    _volume: 0.5
