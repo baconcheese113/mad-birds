@@ -20,6 +20,11 @@ public class LevelController : MonoBehaviour
 
   private void OnEnable()
   {
+    Initialize();
+  }
+
+  public void Initialize()
+  {
     Enemy[] enemies = FindObjectsOfType<Enemy>();
     _enemiesLeft = new List<Enemy>(enemies);
     _enemiesStart = _enemiesLeft.Count;

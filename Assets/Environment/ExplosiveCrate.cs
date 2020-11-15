@@ -1,6 +1,16 @@
 ﻿using UnityEngine;
 
-public class ExplosiveCrate : MonoBehaviour
+[System.Serializable]
+public class ExplosiveCrateSerialized : SerializeBase
+{
+  public float explosionRadius = 2f;
+  public float explosionForce = 500f;
+  public float hitSensitivity = 5f;
+  public float chainReactionRadius = 1f;
+  public bool onlyPlayerCanTrigger = true;
+}
+
+public class ExplosiveCrate : TypeWithSerialize<ExplosiveCrateSerialized>
 {
   [SerializeField] private GameObject _explosionParticles;
   [SerializeField] private float _explosionRadius = 2f;
@@ -43,5 +53,29 @@ public class ExplosiveCrate : MonoBehaviour
       }
     }
     Destroy(gameObject);
+  }
+
+  public override void Deserialize(ExplosiveCrateSerialized data)
+  {
+    base.Deserialize(data);
+    _explosionRadius = data.explosionRadius;
+    _explosionForce = data.explosionForce;
+    _hitSensitivity = data.hitSensitivity;
+    _chainReactionRadius = data.chainReactionRadius;
+    _onlyPlayerCanTrigger = data.onlyPlayerCanTrigger;
+  }
+
+  public override ExplosiveCrateSerialized Serialize()
+  {
+    ExplosiveCrateSerialized crate = new ExplosiveCrateSerialized();
+    crate.explosionRadius = _explosionRadius;
+    crate.explosionForce = _explosionForce;
+    crate.hitSensitivity = _hitSensitivity;
+    crate.chainReactionRadius = _chainReactionRadius;
+    crate.onlyPlayerCanTrigger = _onlyPlayerCanTrigger;
+
+    crate.position = new Vector2(transform.position.x, transform.position.y);
+    crate.rotation = transform.eulerAngles.z;
+    return crate;
   }
 }
