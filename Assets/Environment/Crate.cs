@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class CrateSerialized : SerializeBase { }
 
 public class Crate : TypeWithSerialize<CrateSerialized>

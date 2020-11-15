@@ -25,7 +25,7 @@ public class GenerateFromJSON : MonoBehaviour
 
   public void ImportScene()
   {
-    string contents = File.ReadAllText(Path.Combine(Application.dataPath + _fileName + ".json"));
+    string contents = File.ReadAllText(Path.Combine(Application.dataPath, _fileName + ".json"));
     SceneData data = JsonUtility.FromJson<SceneData>(contents);
     // Add call for each serialized type
     InstanceFromSerialized<Crate, CrateSerialized>(data.crates, _cratePrefab);
