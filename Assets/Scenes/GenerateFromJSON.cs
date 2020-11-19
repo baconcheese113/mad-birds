@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Networking;
 
 /*
 * To add to the serialized data, you need to:
@@ -22,6 +25,41 @@ public class GenerateFromJSON : MonoBehaviour
   [SerializeField] private GameObject _explosiveCratePrefab;
   [SerializeField] private GameObject _platformPrefab;
   [SerializeField] private GameObject _enemyPrefab;
+
+  [Serializable]
+  class Request
+  {
+    [Serializable]
+    public class Variables
+    {
+      public string json;
+    }
+    public Variables variables = new Variables();
+    public string query = "mutation UploadJsonScene($json: String!) { uploadJsonScene(json: $json) }";
+  }
+
+  IEnumerator UploadScene()
+  {
+    Request req = new Request();
+    string contents = File.ReadAllText(Path.Combine(Application.dataPath, _fileName + ".json"));
+    req.variables.json = contents;
+    string fullReq = JsonUtility.ToJson(req);
+    var uwr = new UnityWebRequest("http://localhost:4000/graphql", "POST");
+    byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(fullReq);
+    uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
+    uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+    uwr.SetRequestHeader("Content-Type", "application/json");
+
+    yield return uwr.SendWebRequest();
+    if (uwr.isNetworkError) print("Error while sending: " + uwr.error);
+    else print("Received: " + uwr.downloadHandler.text);
+  }
+
+  public void UploadThisScene()
+  {
+    ExportScene();
+    StartCoroutine(UploadScene());
+  }
 
   public void ImportScene()
   {
