@@ -74,7 +74,8 @@ public class ExplosiveCrate : TypeWithSerialize<ExplosiveCrateSerialized>
     crate.chainReactionRadius = _chainReactionRadius;
     crate.onlyPlayerCanTrigger = _onlyPlayerCanTrigger;
 
-    crate.position = new Vector2(transform.position.x, transform.position.y);
+    crate.x = transform.position.x;
+    crate.y = transform.position.y;
     crate.rotation = transform.eulerAngles.z;
     return crate;
   }

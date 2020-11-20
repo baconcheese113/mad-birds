@@ -21,6 +21,7 @@ public class GenerateFromJSON : MonoBehaviour
 
   [SerializeField] private string _fileName = "ExportedScene";
   // Add prefab for each type
+  [SerializeField] private Int16 _levelNumber = 1;
   [SerializeField] private GameObject _cratePrefab;
   [SerializeField] private GameObject _explosiveCratePrefab;
   [SerializeField] private GameObject _platformPrefab;
@@ -55,6 +56,7 @@ public class GenerateFromJSON : MonoBehaviour
     else print("Received: " + uwr.downloadHandler.text);
   }
 
+  // Writes locally to a json file and then uses that to upload to a webserver
   public void UploadThisScene()
   {
     ExportScene();
@@ -65,6 +67,7 @@ public class GenerateFromJSON : MonoBehaviour
   {
     string contents = File.ReadAllText(Path.Combine(Application.dataPath, _fileName + ".json"));
     SceneData data = JsonUtility.FromJson<SceneData>(contents);
+    _levelNumber = data.scene.levelNumber;
     // Add call for each serialized type
     InstanceFromSerialized<Crate, CrateSerialized>(data.crates, _cratePrefab);
     InstanceFromSerialized<ExplosiveCrate, ExplosiveCrateSerialized>(data.explosiveCrates, _explosiveCratePrefab);
@@ -77,6 +80,8 @@ public class GenerateFromJSON : MonoBehaviour
   {
     SceneData data = new SceneData();
     // Add call for each serialized type
+    data.scene = new Scene();
+    data.scene.levelNumber = _levelNumber;
     data.crates = GetSerializedVersion<Crate, CrateSerialized>();
     data.explosiveCrates = GetSerializedVersion<ExplosiveCrate, ExplosiveCrateSerialized>();
     data.platforms = GetSerializedVersion<Platform, PlatformSerialized>();
@@ -101,7 +106,7 @@ public class GenerateFromJSON : MonoBehaviour
   {
     foreach (S s in data)
     {
-      GameObject go = Instantiate(prefab, new Vector3(s.position.x, s.position.y, 0), Quaternion.Euler(0, 0, s.rotation));
+      GameObject go = Instantiate(prefab, new Vector3(s.x, s.y, 0), Quaternion.Euler(0, 0, s.rotation));
       T t = go.GetComponent<T>();
       t.Deserialize(s);
     }
@@ -109,11 +114,17 @@ public class GenerateFromJSON : MonoBehaviour
 }
 
 public abstract class TypeWithSerialize<S> : MonoBehaviour { public abstract S Serialize(); public virtual void Deserialize(S data) { } }
-public class SerializeBase { public Vector2 position = new Vector2(0f, 0f); public float rotation = 0f; }
+public class SerializeBase { public float x = 0f; public float y = 0f; public float rotation = 0f; }
 
+[Serializable]
+public class Scene
+{
+  public Int16 levelNumber = 1;
+}
 [Serializable]
 public class SceneData
 {
+  public Scene scene;
   // Add type for each serialized type
   public CrateSerialized[] crates;
   public ExplosiveCrateSerialized[] explosiveCrates;

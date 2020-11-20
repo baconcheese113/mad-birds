@@ -57,6 +57,9 @@ public class Platform : TypeWithSerialize<PlatformSerialized>
   public override PlatformSerialized Serialize()
   {
     PlatformSerialized data = new PlatformSerialized();
+    data.x = transform.position.x;
+    data.y = transform.position.y;
+    data.rotation = transform.eulerAngles.z;
     // Rotator
     data.useRotator = _useRotator;
     data.degsPerSec = _degsPerSec;
