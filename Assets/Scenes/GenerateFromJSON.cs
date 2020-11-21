@@ -28,24 +28,22 @@ public class GenerateFromJSON : MonoBehaviour
   [SerializeField] private GameObject _enemyPrefab;
 
   [Serializable]
-  class Request
+  class MutationVariables { public string json; }
+  [Serializable]
+  class QueryVariables { public Int16 levelNumber; }
+
+  [Serializable]
+  class Request<V>
   {
-    [Serializable]
-    public class Variables
-    {
-      public string json;
-    }
-    public Variables variables = new Variables();
-    public string query = "mutation UploadJsonScene($json: String!) { uploadJsonScene(json: $json) }";
+    public V variables;
+    public string query;
   }
 
-  IEnumerator UploadScene()
+  IEnumerator fetch<V>(Request<V> req)
   {
-    Request req = new Request();
-    string contents = File.ReadAllText(Path.Combine(Application.dataPath, _fileName + ".json"));
-    req.variables.json = contents;
     string fullReq = JsonUtility.ToJson(req);
-    var uwr = new UnityWebRequest("http://localhost:4000/graphql", "POST");
+    print(fullReq);
+    UnityWebRequest uwr = new UnityWebRequest("http://localhost:4000/graphql", "POST");
     byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(fullReq);
     uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
     uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
@@ -56,11 +54,26 @@ public class GenerateFromJSON : MonoBehaviour
     else print("Received: " + uwr.downloadHandler.text);
   }
 
+  // Downloads the current server layout for the current level number
+  public void DownloadThisScene()
+  {
+    Request<QueryVariables> req = new Request<QueryVariables>();
+    req.variables = new QueryVariables();
+    req.variables.levelNumber = _levelNumber;
+    req.query = "query DownloadJsonScene($levelNumber: Int!) { downloadJsonScene(levelNumber: $levelNumber) }";
+    StartCoroutine(fetch(req));
+  }
+
   // Writes locally to a json file and then uses that to upload to a webserver
   public void UploadThisScene()
   {
     ExportScene();
-    StartCoroutine(UploadScene());
+    Request<MutationVariables> req = new Request<MutationVariables>();
+    string contents = File.ReadAllText(Path.Combine(Application.dataPath, _fileName + ".json"));
+    req.variables = new MutationVariables();
+    req.variables.json = contents;
+    req.query = "mutation UploadJsonScene($json: String!) { uploadJsonScene(json: $json) }";
+    StartCoroutine(fetch(req));
   }
 
   public void ImportScene()
