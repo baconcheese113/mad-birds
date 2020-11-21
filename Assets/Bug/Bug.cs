@@ -8,7 +8,7 @@ public class Bug : MonoBehaviour
   private bool _birdWasLaunched;
   private float _timeSittingAround = 0;
 
-  [SerializeField] private AudioClip _bugLaunch;
+  [SerializeField] private AudioSource _bugLaunch;
   [SerializeField] private AudioSource _bugImpact;
   [SerializeField] private AudioSource _bugPull;
 
@@ -65,7 +65,9 @@ public class Bug : MonoBehaviour
     _timeSittingAround = 0;
     _birdWasLaunched = true;
     if (_bugPull && _bugPull.isPlaying) _bugPull.Stop();
-    if (_bugLaunch) AudioSource.PlayClipAtPoint(_bugLaunch, transform.position);
+    if (_bugLaunch) _bugLaunch.Play();
+
+
   }
 
   private void OnMouseDrag()
