@@ -12,7 +12,7 @@ public class LevelController : MonoBehaviour
   [SerializeField] private TextMeshProUGUI _levelText;
   [SerializeField] private Slider _enemiesSlider;
   [SerializeField] private GameObject _pauseMenu;
-
+  [SerializeField] private float _cameraPadding = 2f;
   private int _enemiesStart;
   private List<Enemy> _enemiesLeft;
   private static int _nextLevelIndex = 1;
@@ -34,10 +34,10 @@ public class LevelController : MonoBehaviour
     CinemachineTargetGroup targetGroup = FindObjectOfType<CinemachineTargetGroup>();
     foreach (Enemy e in enemies)
     {
-      targetGroup.AddMember(e.transform, 1f, 1f);
+      targetGroup.AddMember(e.transform, 1f, _cameraPadding);
     }
     Bug bug = FindObjectOfType<Bug>();
-    if (bug) targetGroup.AddMember(bug.transform, 1f, 1f);
+    if (bug) targetGroup.AddMember(bug.transform, 1f, _cameraPadding);
   }
 
   public void NotifyEnemyDestroyed(Enemy enemy)

@@ -14,6 +14,7 @@ public class Bug : MonoBehaviour
 
   [SerializeField] private float _launchPower = 600;
   [SerializeField] private float _timeBeforeRestart = 2;
+  [SerializeField] private float _gravity = 1;
 
   private void Awake()
   {
@@ -28,7 +29,7 @@ public class Bug : MonoBehaviour
     {
       _timeSittingAround += Time.deltaTime;
     }
-    if (_timeSittingAround > _timeBeforeRestart || Math.Abs(transform.position.y) > 20 || Math.Abs(transform.position.x) > 20)
+    if (_timeSittingAround > _timeBeforeRestart || Math.Abs(transform.position.y) > 100 || Math.Abs(transform.position.x) > 200)
     {
       string currentSceneName = SceneManager.GetActiveScene().name;
       SceneManager.LoadScene(currentSceneName);
@@ -40,25 +41,27 @@ public class Bug : MonoBehaviour
     if (_bugImpact && !_bugImpact.isPlaying)
     {
       _bugImpact.Play();
-      _bugImpact.volume = Mathf.Min(other.relativeVelocity.magnitude / 20, 1);
+      float volume = Mathf.Min(other.relativeVelocity.magnitude / 20f, 1f);
+      print("Playing impact audio at " + volume);
+      _bugImpact.volume = volume;
     }
   }
 
   private void OnMouseDown()
   {
-    GetComponent<SpriteRenderer>().color = Color.red;
+    GetComponentInChildren<SpriteRenderer>().color = Color.red;
     GetComponent<LineRenderer>().enabled = true;
     if (_bugPull && !_bugPull.isPlaying) _bugPull.Play();
   }
 
   private void OnMouseUp()
   {
-    GetComponent<SpriteRenderer>().color = Color.white;
+    GetComponentInChildren<SpriteRenderer>().color = Color.white;
     GetComponent<LineRenderer>().enabled = false;
 
     Vector2 directionToInitialPosition = _initialPosition - transform.position;
     GetComponent<Rigidbody2D>().AddForce(directionToInitialPosition * _launchPower);
-    GetComponent<Rigidbody2D>().gravityScale = 1;
+    GetComponent<Rigidbody2D>().gravityScale = _gravity;
     _timeSittingAround = 0;
     _birdWasLaunched = true;
     if (_bugPull && _bugPull.isPlaying) _bugPull.Stop();
