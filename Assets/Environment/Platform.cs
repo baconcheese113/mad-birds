@@ -12,7 +12,7 @@ public class PlatformSerialized : SerializeBase
   public bool onlyBounceFront = true;
 
 }
-public class Platform : TypeWithSerialize<PlatformSerialized>
+public class Platform : ITypeWithSerialize<PlatformSerialized>
 {
   // Rotator
   [SerializeField] private bool _useRotator = false;

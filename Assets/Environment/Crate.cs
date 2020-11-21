@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class CrateSerialized : SerializeBase { }
 
-public class Crate : TypeWithSerialize<CrateSerialized>
+public class Crate : ITypeWithSerialize<CrateSerialized>
 {
 
   public override CrateSerialized Serialize()

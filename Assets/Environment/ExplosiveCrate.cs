@@ -10,7 +10,7 @@ public class ExplosiveCrateSerialized : SerializeBase
   public bool onlyPlayerCanTrigger = true;
 }
 
-public class ExplosiveCrate : TypeWithSerialize<ExplosiveCrateSerialized>
+public class ExplosiveCrate : ITypeWithSerialize<ExplosiveCrateSerialized>
 {
   [SerializeField] private GameObject _explosionParticles;
   [SerializeField] private float _explosionRadius = 2f;

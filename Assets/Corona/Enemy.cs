@@ -3,7 +3,7 @@
 [System.Serializable]
 public class EnemySerialized : SerializeBase { }
 
-public class Enemy : TypeWithSerialize<EnemySerialized>
+public class Enemy : ITypeWithSerialize<EnemySerialized>
 {
   [SerializeField] private GameObject _cloudParticlePrefab;
 
