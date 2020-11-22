@@ -8,7 +8,7 @@ public class PlatformSerialized : SerializeBase
   public float degsPerSec = 45f;
   // Bouncer
   public bool useBouncer = false;
-  public float bounceMutliplier = 10f;
+  public float bounceMultiplier = 10f;
   public bool onlyBounceFront = true;
 
 }
@@ -20,7 +20,7 @@ public class Platform : ITypeWithSerialize<PlatformSerialized>
 
   // Bouncer
   [SerializeField] private bool _useBouncer = false;
-  [SerializeField] private float _bounceMutliplier = 10f;
+  [SerializeField] private float _bounceMultiplier = 10f;
   [SerializeField] private bool _onlyBounceFront = true;
 
   void Update()
@@ -38,7 +38,7 @@ public class Platform : ITypeWithSerialize<PlatformSerialized>
     {
       float dotProduct = Vector2.Dot(other.contacts[0].normal, transform.up.normalized);
       if (_onlyBounceFront && dotProduct > 0) return;
-      other.rigidbody.AddForce(transform.up * _bounceMutliplier, ForceMode2D.Impulse);
+      other.rigidbody.AddForce(transform.up * _bounceMultiplier, ForceMode2D.Impulse);
     }
   }
 
@@ -50,7 +50,7 @@ public class Platform : ITypeWithSerialize<PlatformSerialized>
     _degsPerSec = data.degsPerSec;
     // Bouncer
     _useBouncer = data.useBouncer;
-    _bounceMutliplier = data.bounceMutliplier;
+    _bounceMultiplier = data.bounceMultiplier;
     _onlyBounceFront = data.onlyBounceFront;
   }
 
@@ -65,7 +65,7 @@ public class Platform : ITypeWithSerialize<PlatformSerialized>
     data.degsPerSec = _degsPerSec;
     // Bouncer
     data.useBouncer = _useBouncer;
-    data.bounceMutliplier = _bounceMutliplier;
+    data.bounceMultiplier = _bounceMultiplier;
     data.onlyBounceFront = _onlyBounceFront;
     return data;
   }
