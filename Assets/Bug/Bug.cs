@@ -7,6 +7,7 @@ public class Bug : MonoBehaviour
   private Vector3 _initialPosition;
   protected bool _birdWasLaunched;
   private float _timeSittingAround = 0;
+  private LevelController _controller;
 
   [SerializeField] private AudioSource _bugLaunch;
   [SerializeField] private AudioSource _bugImpact;
@@ -16,9 +17,19 @@ public class Bug : MonoBehaviour
   [SerializeField] private float _timeBeforeRestart = 2;
   [SerializeField] private float _gravity = 1;
 
-  protected void Awake()
+  protected virtual void Awake()
   {
     _initialPosition = transform.position;
+    _controller = FindObjectOfType<LevelController>();
+  }
+
+  public virtual void Reset()
+  {
+    GetComponent<Rigidbody2D>().gravityScale = 0;
+    _birdWasLaunched = false;
+    _timeSittingAround = 0;
+    transform.position = _initialPosition;
+    transform.rotation = Quaternion.identity;
   }
 
   protected virtual void Update()
@@ -31,8 +42,7 @@ public class Bug : MonoBehaviour
     }
     if (_timeSittingAround > _timeBeforeRestart || Math.Abs(transform.position.y) > 100 || Math.Abs(transform.position.x) > 200)
     {
-      string currentSceneName = SceneManager.GetActiveScene().name;
-      SceneManager.LoadScene(currentSceneName);
+      _controller.NotifyLaunchEnd(this);
     }
   }
 
@@ -66,8 +76,6 @@ public class Bug : MonoBehaviour
     _birdWasLaunched = true;
     if (_bugPull && _bugPull.isPlaying) _bugPull.Stop();
     if (_bugLaunch) _bugLaunch.Play();
-
-
   }
 
   protected void OnMouseDrag()
