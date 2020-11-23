@@ -172,11 +172,12 @@ MonoBehaviour:
   _bugLaunch: {fileID: 7047051546283580962}
   _bugImpact: {fileID: 7602730107073004893}
   _bugPull: {fileID: 1539725925416429166}
-  _launchPower: 300
+  _launchPower: 200
   _timeBeforeRestart: 2
-  _gravity: 10
+  _gravity: 5
   _numEggs: 3
-  _eggBomb: {fileID: 0}
+  _eggBomb: {fileID: 8765891292231572167, guid: f4ea314d3d728004e8ab296566e17f16,
+    type: 3}
 --- !u!82 &1539725925416429166
 AudioSource:
   m_ObjectHideFlags: 0

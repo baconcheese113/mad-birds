@@ -179,6 +179,6 @@ MonoBehaviour:
     type: 3}
   _explosionRadius: 2
   _explosionForce: 500
-  _hitSensitivity: 5
+  _hitSensitivity: 15
   _chainReactionRadius: 1
-  _onlyPlayerCanTrigger: 1
+  _onlyPlayerCanTrigger: 0
