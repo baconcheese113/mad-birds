@@ -32,12 +32,12 @@ public class LevelController : MonoBehaviour
     _enemiesSlider.maxValue = _enemiesStart;
     _levelText.SetText("Level " + _nextLevelIndex + " / " + _totalLevels);
     CinemachineTargetGroup targetGroup = FindObjectOfType<CinemachineTargetGroup>();
+    Bug bug = FindObjectOfType<Bug>();
+    if (bug) targetGroup.AddMember(bug.transform, 1f, _cameraPadding);
     foreach (Enemy e in enemies)
     {
       targetGroup.AddMember(e.transform, 1f, _cameraPadding);
     }
-    Bug bug = FindObjectOfType<Bug>();
-    if (bug) targetGroup.AddMember(bug.transform, 1f, _cameraPadding);
   }
 
   public void NotifyEnemyDestroyed(Enemy enemy)
@@ -58,9 +58,11 @@ public class LevelController : MonoBehaviour
     if (_levelFinished) return;
     _levelFinished = true;
 
+    FindObjectOfType<CinemachineTargetGroup>().m_Targets[0].radius = 20; // zero because bug should be added first
+
     IEnumerator ProceedToNextLevel()
     {
-      yield return new WaitForSeconds(1.5f);
+      yield return new WaitForSeconds(2.5f);
       _nextLevelIndex = Mathf.Min(_nextLevelIndex + 1, _totalLevels);
       string nextLevelName = "Level" + _nextLevelIndex;
       SceneManager.LoadScene(nextLevelName);
