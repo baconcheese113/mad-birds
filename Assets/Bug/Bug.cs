@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class Bug : MonoBehaviour
 {
   private Vector3 _initialPosition;
-  private bool _birdWasLaunched;
+  protected bool _birdWasLaunched;
   private float _timeSittingAround = 0;
 
   [SerializeField] private AudioSource _bugLaunch;
@@ -16,16 +16,16 @@ public class Bug : MonoBehaviour
   [SerializeField] private float _timeBeforeRestart = 2;
   [SerializeField] private float _gravity = 1;
 
-  private void Awake()
+  protected void Awake()
   {
     _initialPosition = transform.position;
   }
 
-  private void Update()
+  protected virtual void Update()
   {
     GetComponent<LineRenderer>().SetPosition(0, transform.position);
     GetComponent<LineRenderer>().SetPosition(1, _initialPosition);
-    if (_birdWasLaunched && GetComponent<Rigidbody2D>().velocity.magnitude <= .1)
+    if (_birdWasLaunched && GetComponent<Rigidbody2D>().velocity.magnitude <= .4)
     {
       _timeSittingAround += Time.deltaTime;
     }
@@ -36,7 +36,7 @@ public class Bug : MonoBehaviour
     }
   }
 
-  private void OnCollisionEnter2D(Collision2D other)
+  protected void OnCollisionEnter2D(Collision2D other)
   {
     if (_bugImpact && !_bugImpact.isPlaying)
     {
@@ -47,14 +47,14 @@ public class Bug : MonoBehaviour
     }
   }
 
-  private void OnMouseDown()
+  protected void OnMouseDown()
   {
     GetComponentInChildren<SpriteRenderer>().color = Color.red;
     GetComponent<LineRenderer>().enabled = true;
     if (_bugPull && !_bugPull.isPlaying) _bugPull.Play();
   }
 
-  private void OnMouseUp()
+  protected void OnMouseUp()
   {
     GetComponentInChildren<SpriteRenderer>().color = Color.white;
     GetComponent<LineRenderer>().enabled = false;
@@ -70,7 +70,7 @@ public class Bug : MonoBehaviour
 
   }
 
-  private void OnMouseDrag()
+  protected void OnMouseDrag()
   {
     Vector3 newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     transform.position = new Vector3(newPosition.x, newPosition.y, 0);
