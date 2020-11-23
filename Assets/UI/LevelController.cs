@@ -25,6 +25,7 @@ public class LevelController : MonoBehaviour
   private List<Enemy> _enemiesLeft;
   private static int _nextLevelIndex = 1;
   private bool _levelFinished = false;
+  private MusicPlayer _musicPlayer;
 
   private void OnEnable()
   {
@@ -40,6 +41,7 @@ public class LevelController : MonoBehaviour
     _enemiesSlider.maxValue = _enemiesStart;
     _levelText.SetText("Level " + _nextLevelIndex + " / " + _totalLevels);
     _launchesText.SetText("Launch 1 / " + _numLaunches);
+    _musicPlayer = FindObjectOfType<MusicPlayer>();
     CinemachineTargetGroup targetGroup = FindObjectOfType<CinemachineTargetGroup>();
     Bug bug = FindObjectOfType<Bug>();
     if (bug)
@@ -57,6 +59,7 @@ public class LevelController : MonoBehaviour
   {
     _enemiesLeft.Remove(enemy);
     _enemiesSlider.value = _enemiesStart - _enemiesLeft.Count;
+    if (_enemiesLeft.Count == 1) _musicPlayer.IncreaseIntensity();
     if (_enemiesLeft.Count == 0) FinishLevel();
   }
 
@@ -78,6 +81,7 @@ public class LevelController : MonoBehaviour
 
   public void RestartLevel()
   {
+    _musicPlayer.Reset();
     ShowPauseMenu(false);
     SceneManager.LoadScene("Level" + _nextLevelIndex);
   }
@@ -87,6 +91,7 @@ public class LevelController : MonoBehaviour
     if (_levelFinished) return;
     _levelFinished = true;
 
+    _musicPlayer.Reset();
     FindObjectOfType<CinemachineTargetGroup>().m_Targets[0].radius = 20; // zero because bug should be added first
 
     IEnumerator ProceedToNextLevel()
@@ -99,6 +104,7 @@ public class LevelController : MonoBehaviour
     StartCoroutine(ProceedToNextLevel());
   }
 
+  // Logic for UI things
   public void ShowPauseMenu(bool shouldShow)
   {
     Time.timeScale = shouldShow ? 0 : 1;
@@ -107,6 +113,7 @@ public class LevelController : MonoBehaviour
 
   public void JumpToScene(string name)
   {
+    if (name.StartsWith("UI")) _musicPlayer.TriggerMenu();
     ShowPauseMenu(false);
     SceneManager.LoadScene(name);
   }

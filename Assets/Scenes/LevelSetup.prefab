@@ -609,7 +609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _numLaunches: 2
-  _totalLevels: 1
+  _totalLevels: 2
   _levelText: {fileID: 1313797621797407810}
   _launchesText: {fileID: 4365026003194987042}
   _enemiesSlider: {fileID: 3601749236974764561}
