@@ -157,7 +157,7 @@ MonoBehaviour:
   _useRotator: 1
   _degsPerSec: 45
   _useBouncer: 1
-  _bounceMutliplier: 10
+  _bounceMultiplier: 40
   _onlyBounceFront: 1
 --- !u!1 &5271023833975264197
 GameObject:
