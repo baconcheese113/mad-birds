@@ -12,6 +12,7 @@ public class MusicPlayer : MonoBehaviour
   [SerializeField] private AudioSource[] _levelMusic;
   [Tooltip("Seconds it takes to increase a full level")]
   [SerializeField] private float _musicIntensityDamping = 4f;
+  [SerializeField] private float _slowmoPitch = .7f;
 
   private float _targetIntensityLevel = 0f;
   private float _intensityLevel = 0f;
@@ -19,11 +20,15 @@ public class MusicPlayer : MonoBehaviour
   public void Reset()
   {
     _targetIntensityLevel = 0;
+    for (int i = 0; i < _levelMusic.Length; i++)
+    {
+      _levelMusic[i].pitch = _slowmoPitch;
+    }
   }
 
   void Start()
   {
-    DontDestroyOnLoad(gameObject);
+    // DontDestroyOnLoad(gameObject);
     if (SceneManager.GetActiveScene().name.StartsWith("Level")) TriggerLevel();
     else TriggerMenu();
   }

@@ -52,7 +52,7 @@ MonoBehaviour:
   _levelMusic:
   - {fileID: 5142478760823915933}
   - {fileID: 4718518162158320393}
-  _musicIntensityDamping: 4
+  _musicIntensityDamping: 1.5
 --- !u!82 &1051761142751785808
 AudioSource:
   m_ObjectHideFlags: 0
@@ -256,8 +256,9 @@ AudioSource:
   m_GameObject: {fileID: 1051761142751785809}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 1c66476ca199f2e4690e76508a297ff2, type: 3}
+  OutputAudioMixerGroup: {fileID: 8328276959870210936, guid: 8748cee42726ed44e944c946a392118c,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: 94fa4f3ecea6acb449ee159dac1bdf70, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0
   m_Pitch: 1
@@ -352,8 +353,9 @@ AudioSource:
   m_GameObject: {fileID: 1051761142751785809}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f8ebf69988c39e54a9ebb4e2746b1195, type: 3}
+  OutputAudioMixerGroup: {fileID: 8328276959870210936, guid: 8748cee42726ed44e944c946a392118c,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: 571ec09a1cbbfa14eb948b53df4f4f23, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0
   m_Pitch: 1
