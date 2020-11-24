@@ -47,12 +47,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bd266aab0b653c488ae69fdd42ac7aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mixer: {fileID: 24100000, guid: 8748cee42726ed44e944c946a392118c, type: 2}
   _menuMusic: {fileID: 6167205921111128588}
   _levelAmbiance: {fileID: 1051761142751785808}
   _levelMusic:
   - {fileID: 5142478760823915933}
   - {fileID: 4718518162158320393}
   _musicIntensityDamping: 1.5
+  _slowmoPitch: 0.7
 --- !u!82 &1051761142751785808
 AudioSource:
   m_ObjectHideFlags: 0

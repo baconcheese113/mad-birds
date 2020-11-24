@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MusicPlayer : MonoBehaviour
 {
+  [SerializeField] private AudioMixer _mixer;
+  [SerializeField] private Slider[] _volumeSliders;
 
   [SerializeField] private AudioSource _menuMusic;
   [SerializeField] private AudioSource _levelAmbiance;
@@ -28,9 +32,15 @@ public class MusicPlayer : MonoBehaviour
 
   void Start()
   {
-    // DontDestroyOnLoad(gameObject);
     if (SceneManager.GetActiveScene().name.StartsWith("Level")) TriggerLevel();
     else TriggerMenu();
+
+    foreach (Slider s in _volumeSliders)
+    {
+      float volume;
+      _mixer.GetFloat(s.name, out volume);
+      s.SetValueWithoutNotify(volume);
+    }
   }
 
   public void TriggerMenu()
@@ -60,5 +70,10 @@ public class MusicPlayer : MonoBehaviour
     {
       _levelMusic[i].volume = Mathf.Max(.99f - Mathf.Abs(_intensityLevel - i), 0f);
     }
+  }
+
+  public void SetVolume(Slider s)
+  {
+    _mixer.SetFloat(s.name, s.value);
   }
 }

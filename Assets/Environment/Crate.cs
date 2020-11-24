@@ -7,6 +7,15 @@ public class CrateSerialized : SerializeBase { }
 
 public class Crate : ITypeWithSerialize<CrateSerialized>
 {
+  [SerializeField] private AudioSource _crateCollision;
+
+  private void OnCollisionEnter(Collision other)
+  {
+    if (other.gameObject.GetComponent<Crate>())
+    {
+      if (_crateCollision) _crateCollision.Play();
+    }
+  }
 
   public override CrateSerialized Serialize()
   {

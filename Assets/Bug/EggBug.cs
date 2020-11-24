@@ -24,7 +24,7 @@ public class EggBug : Bug
   protected override void Update()
   {
     base.Update();
-    if (Input.GetKeyDown(KeyCode.Mouse0) && _birdWasLaunched && _eggsLeft > 0)
+    if (Input.GetKeyDown(KeyCode.Mouse0) && _bugWasLaunched && _eggsLeft > 0)
     {
       Instantiate(_eggBomb, transform.TransformPoint(Vector3.down * 2), transform.rotation);
       _eggsLeft--;

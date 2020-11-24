@@ -4,29 +4,42 @@ using UnityEngine.SceneManagement;
 
 public class Bug : MonoBehaviour
 {
-  private Vector3 _initialPosition;
-  protected bool _birdWasLaunched;
-  private float _timeSittingAround = 0;
-  private LevelController _controller;
 
   [SerializeField] private AudioSource _bugLaunch;
-  [SerializeField] private AudioSource _bugImpact;
+  [SerializeField] private AudioSource _bugImpactCrate;
+  [SerializeField] private AudioSource _bugImpactGround;
   [SerializeField] private AudioSource _bugPull;
 
-  [SerializeField] private float _launchPower = 600;
-  [SerializeField] private float _timeBeforeRestart = 2;
-  [SerializeField] private float _gravity = 1;
+  [SerializeField] private float _launchPower = 600f;
+  [SerializeField] private float _timeBeforeRestart = 2f;
+  [SerializeField] private float _gravity = 1f;
+
+  private Vector3 _initialPosition;
+  protected bool _bugWasLaunched = false;
+  private float _timeSittingAround = 0f;
+  private LevelController _controller;
+
+  [Header("Bug flight controls ✈️")]
+  [SerializeField] private AudioSource _bugFlight;
+  [Tooltip("Minimum bug velocity to INCREASE flight audio volume (it's set to zero when velocity is below .4)")]
+  [SerializeField] private float _minFlightVelocity = 10f;
+  [Tooltip("Minimum amount of time bug needs to be above minFlightVelocity before increasing volume")]
+  [SerializeField] private float _minTimeTillFlight = .5f;
+  [Tooltip("Multiplier for flight volume increase (volume is still clamped between 0 - 1)")]
+  [SerializeField] private float _flightAudioDamping = 1f;
+  private float _timeInFlight = 0f;
 
   protected virtual void Awake()
   {
     _initialPosition = transform.position;
     _controller = FindObjectOfType<LevelController>();
+    if (_bugFlight) _bugFlight.volume = 0f;
   }
 
   public virtual void Reset()
   {
     GetComponent<Rigidbody2D>().gravityScale = 0;
-    _birdWasLaunched = false;
+    _bugWasLaunched = false;
     _timeSittingAround = 0;
     transform.position = _initialPosition;
     transform.rotation = Quaternion.identity;
@@ -34,10 +47,23 @@ public class Bug : MonoBehaviour
 
   protected virtual void Update()
   {
-    GetComponent<LineRenderer>().SetPosition(0, transform.position);
-    GetComponent<LineRenderer>().SetPosition(1, _initialPosition);
-    if (_birdWasLaunched && GetComponent<Rigidbody2D>().velocity.magnitude <= .4)
+    if (!_bugWasLaunched)
     {
+      GetComponent<LineRenderer>().SetPosition(0, transform.position);
+      GetComponent<LineRenderer>().SetPosition(1, _initialPosition);
+      return;
+    }
+
+    Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
+
+    if (rigidbody.velocity.magnitude > _minFlightVelocity && _bugFlight)
+    {
+      _timeInFlight += Time.deltaTime;
+      _bugFlight.volume = Mathf.Clamp01((_timeInFlight - _minTimeTillFlight) * _flightAudioDamping);
+    }
+    if (rigidbody.velocity.magnitude <= .4f)
+    {
+      _timeInFlight = 0f;
       _timeSittingAround += Time.deltaTime;
     }
     if (_timeSittingAround > _timeBeforeRestart || Math.Abs(transform.position.y) > 100 || Math.Abs(transform.position.x) > 200)
@@ -48,17 +74,22 @@ public class Bug : MonoBehaviour
 
   protected void OnCollisionEnter2D(Collision2D other)
   {
-    if (_bugImpact && !_bugImpact.isPlaying)
+    float volume = Mathf.Min(other.relativeVelocity.magnitude / 20f, 1f);
+    if (_bugImpactCrate && !_bugImpactCrate.isPlaying && other.gameObject.GetComponent<Crate>())
     {
-      _bugImpact.Play();
-      float volume = Mathf.Min(other.relativeVelocity.magnitude / 20f, 1f);
-      print("Playing impact audio at " + volume);
-      _bugImpact.volume = volume;
+      _bugImpactCrate.volume = volume;
+      _bugImpactCrate.Play();
+    }
+    if (_bugImpactGround && !_bugImpactGround.isPlaying && other.gameObject.CompareTag("Ground"))
+    {
+      _bugImpactGround.volume = volume;
+      _bugImpactGround.Play();
     }
   }
 
   protected void OnMouseDown()
   {
+    if (_bugWasLaunched) return;
     GetComponentInChildren<SpriteRenderer>().color = Color.red;
     GetComponent<LineRenderer>().enabled = true;
     if (_bugPull && !_bugPull.isPlaying) _bugPull.Play();
@@ -66,6 +97,7 @@ public class Bug : MonoBehaviour
 
   protected void OnMouseUp()
   {
+    if (_bugWasLaunched) return;
     GetComponentInChildren<SpriteRenderer>().color = Color.white;
     GetComponent<LineRenderer>().enabled = false;
 
@@ -73,13 +105,15 @@ public class Bug : MonoBehaviour
     GetComponent<Rigidbody2D>().AddForce(directionToInitialPosition * _launchPower);
     GetComponent<Rigidbody2D>().gravityScale = _gravity;
     _timeSittingAround = 0;
-    _birdWasLaunched = true;
+    _bugWasLaunched = true;
     if (_bugPull && _bugPull.isPlaying) _bugPull.Stop();
     if (_bugLaunch) _bugLaunch.Play();
+    if (_bugFlight) _bugFlight.Play();
   }
 
   protected void OnMouseDrag()
   {
+    if (_bugWasLaunched) return;
     Vector3 newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     transform.position = new Vector3(newPosition.x, newPosition.y, 0);
   }

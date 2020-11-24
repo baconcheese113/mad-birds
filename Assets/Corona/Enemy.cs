@@ -6,6 +6,7 @@ public class EnemySerialized : SerializeBase { }
 public class Enemy : ITypeWithSerialize<EnemySerialized>
 {
   [SerializeField] private GameObject _cloudParticlePrefab;
+  [SerializeField] private AudioClip _enemyDeath;
 
   private void OnCollisionEnter2D(Collision2D other)
   {
@@ -28,6 +29,7 @@ public class Enemy : ITypeWithSerialize<EnemySerialized>
 
   private void OnDestroy()
   {
+    if (_enemyDeath) AudioSource.PlayClipAtPoint(_enemyDeath, transform.position);
     LevelController controller = FindObjectOfType<LevelController>();
     if (controller) controller.NotifyEnemyDestroyed(this);
   }

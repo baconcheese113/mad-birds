@@ -30,7 +30,7 @@ AudioMixerGroupController:
   m_Effects:
   - {fileID: 4617332649272840982}
   - {fileID: -1806222008444649095}
-  m_UserColorIndex: 0
+  m_UserColorIndex: 5
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
@@ -63,7 +63,17 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: a5c8590805c37e94695aec9ec266b21a
+    name: AmbienceVolume
+  - guid: 40f1e5e4aee608540805a1157c8176c9
+    name: MasterVolume
+  - guid: 6e5ee8cc23054244894e71adf271a353
+    name: MusicVolume
+  - guid: 84ebaa409d8e2b34f8f49ae79b0b8333
+    name: ReturnVolume
+  - guid: 807e53357bc4c404eaff36dd66e31c88
+    name: SFXVolume
   m_AudioMixerGroupViews:
   - guids:
     - a13e15b257e008b438fd360ec14151d6
@@ -93,7 +103,7 @@ AudioMixerGroupController:
   m_Send: 00000000000000000000000000000000
   m_Effects:
   - {fileID: 24400004}
-  m_UserColorIndex: 0
+  m_UserColorIndex: 3
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
@@ -130,7 +140,7 @@ AudioMixerSnapshotController:
     9b74bcf237c5aa9488627a6b9c64387f: 0
     fc0595d3a185bb04da948e1a0a4d3739: -3530
     8f5945443e545ca4e9e1ab9aff37234c: 0
-    40f1e5e4aee608540805a1157c8176c9: -80
+    40f1e5e4aee608540805a1157c8176c9: -0.19117308
     8c7d3365bebe6b44d981c37f113af304: -10000
     e459a067c3c2bc240bf175dd0697c5b2: 0.48299998
     186e5677fd311c649aa93b0eeba972f3: 54.3
@@ -240,7 +250,7 @@ AudioMixerGroupController:
   m_Send: 00000000000000000000000000000000
   m_Effects:
   - {fileID: 3537428004740490911}
-  m_UserColorIndex: 0
+  m_UserColorIndex: 1
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
@@ -262,7 +272,7 @@ AudioMixerGroupController:
   - {fileID: 2181401106359275986}
   - {fileID: 8827165673075141283}
   - {fileID: 7947395884770270898}
-  m_UserColorIndex: 0
+  m_UserColorIndex: 7
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
@@ -295,7 +305,7 @@ AudioMixerGroupController:
   m_Send: 00000000000000000000000000000000
   m_Effects:
   - {fileID: -7721713145480427590}
-  m_UserColorIndex: 0
+  m_UserColorIndex: 8
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0

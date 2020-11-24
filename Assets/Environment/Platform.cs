@@ -22,6 +22,7 @@ public class Platform : ITypeWithSerialize<PlatformSerialized>
   [SerializeField] private bool _useBouncer = false;
   [SerializeField] private float _bounceMultiplier = 10f;
   [SerializeField] private bool _onlyBounceFront = true;
+  [SerializeField] private AudioSource _bounce;
 
   void Update()
   {
@@ -39,6 +40,7 @@ public class Platform : ITypeWithSerialize<PlatformSerialized>
       float dotProduct = Vector2.Dot(other.contacts[0].normal, transform.up.normalized);
       if (_onlyBounceFront && dotProduct > 0) return;
       other.rigidbody.AddForce(transform.up * _bounceMultiplier, ForceMode2D.Impulse);
+      if (_bounce) _bounce.Play();
     }
   }
 

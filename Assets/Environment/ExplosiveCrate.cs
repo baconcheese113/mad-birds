@@ -19,6 +19,7 @@ public class ExplosiveCrate : ITypeWithSerialize<ExplosiveCrateSerialized>
   [SerializeField] private float _hitSensitivity = 5f;
   [SerializeField] private float _chainReactionRadius = 1f;
   [SerializeField] private bool _onlyPlayerCanTrigger = true;
+  [SerializeField] private AudioClip _explosion;
 
   public bool _isExploding { get; private set; } = false;
 
@@ -34,6 +35,7 @@ public class ExplosiveCrate : ITypeWithSerialize<ExplosiveCrateSerialized>
   {
     if (_isExploding) return;
     _isExploding = true;
+    if (_explosion) AudioSource.PlayClipAtPoint(_explosion, transform.position);
     Instantiate(_explosionParticles, transform.position, Quaternion.identity);
     Collider2D[] others = Physics2D.OverlapCircleAll(transform.position, _explosionRadius);
     foreach (Collider2D other in others)
