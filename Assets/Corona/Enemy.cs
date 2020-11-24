@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 [System.Serializable]
 public class EnemySerialized : SerializeBase { }
@@ -7,20 +8,33 @@ public class Enemy : ITypeWithSerialize<EnemySerialized>
 {
   [SerializeField] private GameObject _cloudParticlePrefab;
   [SerializeField] private AudioClip _enemyDeath;
+  [Tooltip("How slow to slow")]
+  [SerializeField] private float _slowmoSpeed = .2f;
+  [Tooltip("How long to slow")]
+  [SerializeField] private float _slowmoLength = .3f;
 
   private void OnCollisionEnter2D(Collision2D other)
   {
     Bug bug = other.collider.GetComponent<Bug>();
-    if (bug != null)
+    if (bug)
     {
+      IEnumerator EndSlowMo()
+      {
+        yield return new WaitForSecondsRealtime(_slowmoLength);
+        if (Time.timeScale > 0.001f) Time.timeScale = 1f; // Just in case we're paused
+        Destroy(gameObject);
+      }
+      Time.timeScale = _slowmoSpeed;
+      StartCoroutine(EndSlowMo());
+
+      Destroy(GetComponent<Collider2D>());
       Instantiate(_cloudParticlePrefab, transform.position, Quaternion.identity);
-      Destroy(gameObject);
       return;
     }
     Enemy enemy = other.collider.GetComponent<Enemy>();
     if (enemy != null) return;
 
-    if (other.contacts[0].normal.y < -.5)
+    if (other.contacts[0].normal.y < -.5f)
     {
       Instantiate(_cloudParticlePrefab, transform.position, Quaternion.identity);
       Destroy(gameObject);
