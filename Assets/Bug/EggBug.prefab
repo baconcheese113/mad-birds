@@ -170,11 +170,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bugLaunch: {fileID: 7047051546283580962}
-  _bugImpact: {fileID: 7602730107073004893}
+  _bugImpactCrate: {fileID: 0}
+  _bugImpactGround: {fileID: 0}
   _bugPull: {fileID: 1539725925416429166}
   _launchPower: 200
   _timeBeforeRestart: 2
   _gravity: 5
+  _launchLine: {fileID: 4901626551922033019}
+  _boundsLine: {fileID: 0}
+  _bugFlight: {fileID: 0}
+  _minFlightVelocity: 10
+  _minTimeTillFlight: 0.5
+  _flightAudioDamping: 1
   _numEggs: 3
   _eggBomb: {fileID: 8765891292231572167, guid: f4ea314d3d728004e8ab296566e17f16,
     type: 3}

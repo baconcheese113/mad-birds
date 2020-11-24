@@ -14,6 +14,9 @@ public class Bug : MonoBehaviour
   [SerializeField] private float _timeBeforeRestart = 2f;
   [SerializeField] private float _gravity = 1f;
 
+  [SerializeField] protected LineRenderer _launchLine;
+  [SerializeField] private bool _ignoreLaunchBounds = false;
+
   private Vector3 _initialPosition;
   protected bool _bugWasLaunched = false;
   private float _timeSittingAround = 0f;
@@ -49,8 +52,8 @@ public class Bug : MonoBehaviour
   {
     if (!_bugWasLaunched)
     {
-      GetComponent<LineRenderer>().SetPosition(0, transform.position);
-      GetComponent<LineRenderer>().SetPosition(1, _initialPosition);
+      _launchLine.SetPosition(0, transform.position);
+      _launchLine.SetPosition(1, _initialPosition);
       return;
     }
 
@@ -91,7 +94,7 @@ public class Bug : MonoBehaviour
   {
     if (_bugWasLaunched) return;
     GetComponentInChildren<SpriteRenderer>().color = Color.red;
-    GetComponent<LineRenderer>().enabled = true;
+    _launchLine.enabled = true;
     if (_bugPull && !_bugPull.isPlaying) _bugPull.Play();
   }
 
@@ -99,7 +102,7 @@ public class Bug : MonoBehaviour
   {
     if (_bugWasLaunched) return;
     GetComponentInChildren<SpriteRenderer>().color = Color.white;
-    GetComponent<LineRenderer>().enabled = false;
+    _launchLine.enabled = false;
 
     Vector2 directionToInitialPosition = _initialPosition - transform.position;
     GetComponent<Rigidbody2D>().AddForce(directionToInitialPosition * _launchPower);
@@ -115,6 +118,7 @@ public class Bug : MonoBehaviour
   {
     if (_bugWasLaunched) return;
     Vector3 newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    transform.position = new Vector3(newPosition.x, newPosition.y, 0);
+    if (_ignoreLaunchBounds) transform.position = new Vector3(newPosition.x, newPosition.y, 0f);
+    transform.position = new Vector3(Mathf.Clamp(newPosition.x, 1f, _initialPosition.x), Mathf.Clamp(newPosition.y, 8f, 40f), 0);
   }
 }

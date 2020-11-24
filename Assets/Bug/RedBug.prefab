@@ -190,11 +190,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bugLaunch: {fileID: -3048854325653239550}
-  _bugImpact: {fileID: 6772905795582300797}
+  _bugImpactCrate: {fileID: 0}
+  _bugImpactGround: {fileID: 0}
   _bugPull: {fileID: 2387567225251361102}
   _launchPower: 300
   _timeBeforeRestart: 2
   _gravity: 10
+  _launchLine: {fileID: 8104913962290681435}
+  _ignoreLaunchBounds: 0
+  _bugFlight: {fileID: 0}
+  _minFlightVelocity: 10
+  _minTimeTillFlight: 0.5
+  _flightAudioDamping: 1
 --- !u!82 &2387567225251361102
 AudioSource:
   m_ObjectHideFlags: 0
