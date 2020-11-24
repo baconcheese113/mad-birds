@@ -182,3 +182,4 @@ MonoBehaviour:
   _hitSensitivity: 15
   _chainReactionRadius: 1
   _onlyPlayerCanTrigger: 0
+  _explosion: {fileID: 8300000, guid: 89d1e9cfb76c74a46a9c2194f471d39d, type: 3}

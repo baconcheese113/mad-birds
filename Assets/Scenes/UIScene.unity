@@ -5525,6 +5525,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1051761142751785808, guid: 4cb8a52ae28b634498350d26ba5fb54e,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 1051761142751785809, guid: 4cb8a52ae28b634498350d26ba5fb54e,
         type: 3}
       propertyPath: m_Name
@@ -5585,36 +5590,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1051761142751785823, guid: 4cb8a52ae28b634498350d26ba5fb54e,
-        type: 3}
-      propertyPath: _volumeSliders.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1051761142751785823, guid: 4cb8a52ae28b634498350d26ba5fb54e,
-        type: 3}
-      propertyPath: _volumeSliders.Array.data[0]
-      value: 
-      objectReference: {fileID: 1865599074}
-    - target: {fileID: 1051761142751785823, guid: 4cb8a52ae28b634498350d26ba5fb54e,
-        type: 3}
-      propertyPath: _volumeSliders.Array.data[1]
-      value: 
-      objectReference: {fileID: 1596313897}
-    - target: {fileID: 1051761142751785823, guid: 4cb8a52ae28b634498350d26ba5fb54e,
-        type: 3}
-      propertyPath: _volumeSliders.Array.data[2]
-      value: 
-      objectReference: {fileID: 1960648281}
-    - target: {fileID: 1051761142751785823, guid: 4cb8a52ae28b634498350d26ba5fb54e,
-        type: 3}
-      propertyPath: _volumeSliders.Array.data[3]
-      value: 
-      objectReference: {fileID: 1306967649}
-    - target: {fileID: 1051761142751785823, guid: 4cb8a52ae28b634498350d26ba5fb54e,
-        type: 3}
-      propertyPath: _volumeSliders.Array.data[4]
-      value: 
-      objectReference: {fileID: 260640975}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4cb8a52ae28b634498350d26ba5fb54e, type: 3}
 --- !u!1001 &6237411407491454243

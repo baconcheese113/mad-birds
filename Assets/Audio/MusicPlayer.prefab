@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mixer: {fileID: 24100000, guid: 8748cee42726ed44e944c946a392118c, type: 2}
+  _volumeSliders: []
   _menuMusic: {fileID: 6167205921111128588}
   _levelAmbiance: {fileID: 1051761142751785808}
   _levelMusic:
@@ -66,7 +67,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 5716378154014609016, guid: 8748cee42726ed44e944c946a392118c,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 336980693738e9b4fa84f5747ec7e2bd, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d83df0e766c7c054bb05ffa88c71a1d9, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.3
   m_Pitch: 1

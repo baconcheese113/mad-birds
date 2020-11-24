@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 2211585013971298143}
   - component: {fileID: 2211585013971298141}
   m_Layer: 0
-  m_Name: Virus
+  m_Name: virus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -197,3 +197,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cloudParticlePrefab: {fileID: 7116234603976472564, guid: 03ec47e164e75194e9537504ed969f23,
     type: 3}
+  _enemyDeath: {fileID: 8300000, guid: ec71a852d32645344a104995ab05b118, type: 3}
+  _slowmoSpeed: 0.2
+  _slowmoLength: 0.3
