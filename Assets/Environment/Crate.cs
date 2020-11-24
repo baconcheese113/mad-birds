@@ -9,7 +9,7 @@ public class Crate : ITypeWithSerialize<CrateSerialized>
 {
   [SerializeField] private AudioSource _crateCollision;
 
-  private void OnCollisionEnter(Collision other)
+  private void OnCollisionEnter2D(Collision2D other)
   {
     if (other.gameObject.GetComponent<Crate>())
     {
