@@ -71,5 +71,4 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # Spine integration
-Spine/
 Spine Examples/
