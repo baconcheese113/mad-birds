@@ -18,6 +18,7 @@ public class LevelController : MonoBehaviour
   [SerializeField] private Slider _enemiesSlider;
   [SerializeField] private GameObject _pauseMenu;
   [SerializeField] private float _cameraPadding = 2f;
+  [SerializeField] private ScoreMenu _scoreMenu;
 
   private int _launchesUsed = 1;
   private Vector3 _playerStartPosition;
@@ -96,10 +97,16 @@ public class LevelController : MonoBehaviour
 
     IEnumerator ProceedToNextLevel()
     {
-      yield return new WaitForSeconds(2.5f);
-      _nextLevelIndex = Mathf.Min(_nextLevelIndex + 1, _totalLevels);
-      string nextLevelName = "Level" + _nextLevelIndex;
-      SceneManager.LoadScene(nextLevelName);
+      int finishTime = Mathf.FloorToInt(Time.timeSinceLevelLoad);
+      yield return new WaitForSeconds(1.5f);
+      System.Action loadNextLevelFn = () =>
+      {
+        _nextLevelIndex = Mathf.Min(_nextLevelIndex + 1, _totalLevels);
+        string nextLevelName = "Level" + _nextLevelIndex;
+        SceneManager.LoadScene(nextLevelName);
+      };
+      _scoreMenu.gameObject.SetActive(true);
+      _scoreMenu.PlayScoreSequence(finishTime, _numLaunches - _launchesUsed, loadNextLevelFn);
     }
     StartCoroutine(ProceedToNextLevel());
   }
