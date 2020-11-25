@@ -15,7 +15,7 @@ public class Balloon : MonoBehaviour
   {
     if (other.relativeVelocity.magnitude < _minPopVelocity) return;
     Instantiate(_popParticles, transform.TransformPoint(Vector3.up * 2f), transform.rotation);
-    if (_pop) _pop.Play();
+    if (_pop) LevelController.PlayOnNewObject(transform.position, _pop);
     _payload.transform.SetParent(null);
     _payload.gameObject.GetComponent<Rigidbody2D>().mass = 1f;
     GetComponent<HingeJoint2D>().enabled = false;
