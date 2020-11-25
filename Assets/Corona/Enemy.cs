@@ -24,6 +24,7 @@ public class Enemy : ITypeWithSerialize<EnemySerialized>
       {
         yield return new WaitForSecondsRealtime(_slowmoLength);
         if (Time.timeScale > 0.001f) Time.timeScale = 1f; // Just in case we're paused
+        LevelController.PlayOnNewObject(transform.position, _enemyDeath);
         Destroy(gameObject);
       }
       Time.timeScale = _slowmoSpeed;
@@ -36,13 +37,13 @@ public class Enemy : ITypeWithSerialize<EnemySerialized>
     if (other.contacts[0].normal.y < -.5f)
     {
       Instantiate(_cloudParticlePrefab, transform.position, Quaternion.identity);
+      LevelController.PlayOnNewObject(transform.position, _enemyDeath);
       Destroy(gameObject);
     }
   }
 
   private void OnDestroy()
   {
-    LevelController.PlayOnNewObject(transform.position, _enemyDeath);
     LevelController controller = FindObjectOfType<LevelController>();
     if (controller) controller.NotifyEnemyDestroyed(this);
   }
