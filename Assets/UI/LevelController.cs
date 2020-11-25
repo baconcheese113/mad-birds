@@ -128,9 +128,10 @@ public class LevelController : MonoBehaviour
 
   public static void PlayOnNewObject(Vector3 position, AudioSource audioSource)
   {
-    GameObject newObject = new GameObject(audioSource.name);
+    GameObject newObject = new GameObject("AUDIO" + audioSource.name);
     newObject.transform.position = position;
     AudioSource newAudio = newObject.AddComponent<AudioSource>();
+    newAudio.clip = audioSource.clip;
     newAudio.volume = audioSource.volume;
     newAudio.outputAudioMixerGroup = audioSource.outputAudioMixerGroup;
     newAudio.Play();
