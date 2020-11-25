@@ -7,7 +7,7 @@ public class EnemySerialized : SerializeBase { }
 public class Enemy : ITypeWithSerialize<EnemySerialized>
 {
   [SerializeField] private GameObject _cloudParticlePrefab;
-  [SerializeField] private AudioClip _enemyDeath;
+  [SerializeField] private AudioSource _enemyDeath;
   [Tooltip("How slow to slow")]
   [SerializeField] private float _slowmoSpeed = .2f;
   [Tooltip("How long to slow")]
@@ -18,6 +18,8 @@ public class Enemy : ITypeWithSerialize<EnemySerialized>
     Bug bug = other.collider.GetComponent<Bug>();
     if (bug)
     {
+      Destroy(GetComponent<Collider2D>());
+      Instantiate(_cloudParticlePrefab, transform.position, Quaternion.identity);
       IEnumerator EndSlowMo()
       {
         yield return new WaitForSecondsRealtime(_slowmoLength);
@@ -26,9 +28,6 @@ public class Enemy : ITypeWithSerialize<EnemySerialized>
       }
       Time.timeScale = _slowmoSpeed;
       StartCoroutine(EndSlowMo());
-
-      Destroy(GetComponent<Collider2D>());
-      Instantiate(_cloudParticlePrefab, transform.position, Quaternion.identity);
       return;
     }
     Enemy enemy = other.collider.GetComponent<Enemy>();
@@ -43,7 +42,7 @@ public class Enemy : ITypeWithSerialize<EnemySerialized>
 
   private void OnDestroy()
   {
-    if (_enemyDeath) AudioSource.PlayClipAtPoint(_enemyDeath, transform.position);
+    LevelController.PlayOnNewObject(transform.position, _enemyDeath);
     LevelController controller = FindObjectOfType<LevelController>();
     if (controller) controller.NotifyEnemyDestroyed(this);
   }

@@ -124,4 +124,15 @@ public class LevelController : MonoBehaviour
     ShowPauseMenu(false);
     SceneManager.LoadScene(name);
   }
+
+
+  public static void PlayOnNewObject(Vector3 position, AudioSource audioSource)
+  {
+    GameObject newObject = new GameObject(audioSource.name);
+    newObject.transform.position = position;
+    AudioSource newAudio = newObject.AddComponent<AudioSource>();
+    newAudio.volume = audioSource.volume;
+    newAudio.outputAudioMixerGroup = audioSource.outputAudioMixerGroup;
+    newAudio.Play();
+  }
 }
